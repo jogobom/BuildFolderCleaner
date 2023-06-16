@@ -31,4 +31,4 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: BuildFolderCleaner
-        path:  bin/debug/net6.0/*.*
+        path: bin
