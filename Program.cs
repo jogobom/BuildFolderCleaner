@@ -1,6 +1,8 @@
-﻿if (args.Length == 0)
+﻿using Spectre.Console;
+
+if (args.Length == 0)
 {
-    Console.WriteLine($"No argument supplied, I refuse to run so I don't accidentally delete a load of things you didn't intend.");
+    AnsiConsole.MarkupLine($"[yellow]No argument supplied, I refuse to run so I don't accidentally delete a load of things you didn't intend.[/]");
     return;
 }
 
@@ -12,7 +14,7 @@ var foldersToDelete =
         .Where(f => !f.Contains("node_modules"))
         .ToList();
 
-Console.WriteLine("I'm going to delete the following folders:");
+AnsiConsole.MarkupLine("I'm going to [bold]delete[/] the following folders:");
 
 foreach (var folder in foldersToDelete)
 {
@@ -20,11 +22,11 @@ foreach (var folder in foldersToDelete)
 }
 
 const string confirmCode = "order 66";
-Console.WriteLine($"Say '{confirmCode}' to confirm:");
+AnsiConsole.MarkupLine($"[green]Say [bold]'{confirmCode}'[/] to confirm:[/]");
 
 if (Console.ReadLine() != confirmCode)
 {
-    Console.WriteLine("Those folders will not die this day.");
+    AnsiConsole.MarkupLine("[green]Those folders will not die this day.[/]");
     return;
 }
     
@@ -33,10 +35,10 @@ foreach (var folder in foldersToDelete)
     try
     {
         Directory.Delete(folder, true);
-        Console.WriteLine($"Deleted {folder}");
+        AnsiConsole.MarkupLine($"Deleted {folder}");
     }
     catch(Exception e)
     {
-        Console.WriteLine($"Unable to delete {folder} because {e.Message}");
+        AnsiConsole.MarkupLine($"[red]Unable to delete {folder} because [bold]{e.Message}[/][/]");
     }
 }
